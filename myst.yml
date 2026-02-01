@@ -1,0 +1,38 @@
+# See docs at: https://mystmd.org/guide/frontmatter
+version: 1
+project:
+  id: 46641c1e-5557-49d5-a1ed-f8d6598785d1
+  # title:
+  # description:
+  # keywords: []
+  # authors: []
+  # github:
+  # To autogenerate a Table of Contents, run "jupyter book init --write-toc"
+  toc:
+      - file: index.md
+      - title: 引言
+        children:
+          - file: 01intro.md
+          - file: 02one_parameter_bifurcations.md
+      - title: 平衡点与周期解
+        children:
+          - file: 11e_point.md
+          - file: 12periodic_sol.md
+      - title: 典型分岔与范式
+        children:
+          - file: 21two.md
+          - file: 22hopf.md
+      - title: 降阶方法
+        children:
+          - file: 31central_manifold.md
+          - file: 32project_method.md
+      - title: 计算方法
+        children:
+          - file: 41symbolic.md
+          - file: 42continuation.md
+site:
+  template: book-theme
+  # options:
+  #   favicon: favicon.ico
+  #   logo: site_logo.png
+  
