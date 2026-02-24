@@ -32,6 +32,8 @@ project:
           - file: 42continuation.md
 site:
   template: book-theme
+  options:
+    hide_download: true
   # options:
   #   favicon: favicon.ico
   #   logo: site_logo.png
