@@ -14,7 +14,7 @@ project:
         children:
           - file: 01intro.md
           - file: 02one_parameter_bifurcations.md
-      - title: 平衡点与周期解
+      - title: 线性系统与奇点分类
         children:
           - file: 11e_point.md
           - file: 12periodic_sol.md
