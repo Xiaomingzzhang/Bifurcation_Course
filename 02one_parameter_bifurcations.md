@@ -65,7 +65,12 @@ $$
 :width: 80%
 :align: center
 ```
-当参数变化时, 两个平衡点的稳定性发生了交换, 这种分岔现象我们将其称为跨临界分岔.
+当参数变化时, 两个平衡点的稳定性发生了交换, 这种分岔现象我们将其称为跨临界分岔:
+```{figure} ./asserts/videos/自治_跨临界.gif
+:alt: 视频无法加载
+:width: 80%
+:align: center
+```
 ### 音叉分岔
 考虑如下一维方程
 $$
@@ -85,13 +90,74 @@ $$
 :align: center
 ```
 从分岔图可以看出, 系统的平衡点从一个变成三个, 同时始终存在的那个平衡点的稳定性发生变化. 分岔图如同一个音叉, 因此得名音叉分岔.
+
+```{prf:remark}
+刚刚我们介绍过判定一维系统平衡点稳定性的方法, 这个方法实际上也可类比地适用于单自由度保守系统:
+$$
+\ddot{x}=-\frac{\partial V}{\partial x}.
+$$
+根据 Lagrange-Dirichlet 定理, $V$ 的孤立极小点是稳定的, 而 $V$ 的孤立极大点是不稳定的. 这两个条件相应于:
+- $\frac{\partial V}{\partial x}(x^*)=0, \frac{\partial V}{\partial x}(x^*)>0$, 平衡点 $x^*$ 稳定;
+- $\frac{\partial V}{\partial x}(x^*)=0, \frac{\partial V}{\partial x}(x^*)<0$, 平衡点 $x^*$ 不稳定.
+
+因此对于这类系统, 平衡点稳定性的判断条件与一维系统类似.
+```
+
+考虑压杆的简化模型.
+
+```{figure} ./asserts/figs/02压杆_模型.png
+:alt: 视频无法加载
+:width: 30%
+:align: center
+```
+
+其中 $x$ 为扭转角度 ($x$ 很小), $l$ 为杆长, $k$ 为线性扭转弹簧的刚度, $P$ 为恒力. 系统的势能为:
+$$
+V(x,P)=\frac{1}{2}kx^2- Pl(1-\cos x).
+$$
+那么我们得到:
+$$
+-\frac{1}{P}\frac{\partial V}{\partial x}=-\frac{k}{P}x+l\sin x=(-\frac{k}{P}+l)x+lx^3+O(x^5),
+$$
+这正是音叉分岔的标准形式再加了一些高阶项. 当 $P$ 逐渐增大时, $x=0$ 这个平衡点变得不稳定, 同时系统分岔出两个稳定的对称的平衡点.
+
 ### 滞后分岔
+考虑标量方程
+$$
+\dot{x}=\mu+x-x^3.
+$$
+这个系统的分岔图为:
 ```{figure} ./asserts/figs/02滞后分岔.png
 :alt: 视频无法加载
 :width: 80%
 :align: center
 ```
 为何这个分岔取名为滞后分岔呢? 因为当参数变化时, 系统的定性性质的改变有一个滞后效应, 到达临界点时稳定性突然变化.
+
+考虑浅拱的简化模型:
+```{figure} ./asserts/figs/02浅拱_模型.png
+:alt: 视频无法加载
+:width: 60%
+:align: center
+```
+图示 $\alpha$ 为弹簧的自然伸长状态. 现在加一个力 $P$. 系统总的势能由弹簧势能:
+$$
+V_k(x)=k(\frac{l}{\cos\alpha}-\frac{l}{\cos x})^2
+$$
+和力 $P$ 的势能
+$$
+V_P(x)=-Pl(\tan \alpha-\tan x)
+$$
+组成: $V(x)=V_k(x)+V_P(x)$, 其中 $x$ 为弹簧与水平线夹角. 由于是浅拱假设, $\alpha$ 与 $x$ 都是较小的, 那么对 $V$ 在 $\alpha=0,x=0$ 附近展开得到:
+$$
+V(x)=\frac{1}{4}kl^2(\alpha^4-2\alpha^2 x^2+x^4)-Pl(\alpha-x)+O(||(\alpha,x)||^5).
+$$
+因此
+$$
+-\frac{\partial V}{\partial x}=-Pl +kl^2\alpha^2 x-kl^2 x^3+ O(||(\alpha,x)||^4).
+$$
+这就是滞后分岔的模式, 当 $P$ 逐渐增大, 平衡点失稳同时系统跳跃到稳定的平衡点那一支.
+
 ### Hopf 分岔
 以上我们介绍的几个分岔都是平衡点稳定性以及数目的变化. 现在我们介绍 Hopf 分岔, Hopf 分岔将从平衡点分岔出周期解. Hopf 分岔对于机翼的颤振与列车的蛇形运动是很有作用的.
 

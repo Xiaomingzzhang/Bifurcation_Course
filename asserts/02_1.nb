@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    128696,       2729]
-NotebookOptionsPosition[    126367,       2679]
-NotebookOutlinePosition[    126779,       2696]
-CellTagsIndexPosition[    126736,       2693]
+NotebookDataLength[    130677,       2792]
+NotebookOptionsPosition[    128120,       2738]
+NotebookOutlinePosition[    128532,       2755]
+CellTagsIndexPosition[    128489,       2752]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -2675,6 +2675,65 @@ Cell[BoxData[
   SuperscriptBox["\[Mu]", "3"]}]], "Output",
  CellLabel->
   "Out[571]=",ExpressionUUID->"4841ace4-edc2-df46-89e0-c771c0027801"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Series", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"D", "[", 
+     RowBox[{
+      RowBox[{"ff", "[", 
+       RowBox[{
+        RowBox[{"ff", "[", 
+         RowBox[{"x", ",", "\[Mu]"}], "]"}], ",", "\[Mu]"}], "]"}], ",", 
+      "x"}], "]"}], "/.", 
+    RowBox[{"{", 
+     RowBox[{"x", "->", 
+      RowBox[{"\[Alpha]", " ", 
+       SqrtBox[
+        FractionBox[
+         RowBox[{
+          SuperscriptBox["\[Mu]", "2"], "+", 
+          RowBox[{"2", "\[Mu]"}]}], 
+         RowBox[{"1", "+", "\[Mu]", "+", 
+          SuperscriptBox[
+           RowBox[{"(", 
+            RowBox[{"1", "+", "\[Mu]"}], ")"}], "3"]}]]]}]}], "}"}]}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\[Mu]", ",", "0", ",", "2"}], "}"}]}], "]"}]], "Input",
+ CellLabel->
+  "In[582]:=",ExpressionUUID->"8f154635-3069-364f-97d4-41240a2b0f21"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"1", "+", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"2", "-", 
+      RowBox[{"6", " ", 
+       SuperscriptBox["\[Alpha]", "2"]}]}], ")"}], " ", "\[Mu]"}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"1", "-", 
+      RowBox[{"3", " ", 
+       SuperscriptBox["\[Alpha]", "2"]}], "+", 
+      RowBox[{"15", " ", 
+       SuperscriptBox["\[Alpha]", "4"]}]}], ")"}], " ", 
+    SuperscriptBox["\[Mu]", "2"]}], "+", 
+   InterpretationBox[
+    SuperscriptBox[
+     RowBox[{"O", "[", "\[Mu]", "]"}], "3"],
+    SeriesData[$CellContext`\[Mu], 0, {}, 0, 6, 2],
+    Editable->False]}],
+  SeriesData[$CellContext`\[Mu], 0, {
+   1, 0, 2 - 6 $CellContext`\[Alpha]^2, 0, 1 - 3 $CellContext`\[Alpha]^2 + 
+    15 $CellContext`\[Alpha]^4}, 0, 6, 2],
+  Editable->False]], "Output",
+ CellLabel->
+  "Out[582]=",ExpressionUUID->"d0eb89d9-925f-094c-8528-4de49738fe24"]
 }, Open  ]]
 },
 WindowSize->{639, 652},
@@ -2730,6 +2789,10 @@ Cell[125479, 2645, 278, 8, 32, "Output",ExpressionUUID->"ac713f86-7b9d-0d42-b213
 Cell[CellGroupData[{
 Cell[125794, 2658, 294, 9, 43, "Input",ExpressionUUID->"60998b24-fb55-7244-98af-46e05a2a8496"],
 Cell[126091, 2669, 260, 7, 32, "Output",ExpressionUUID->"4841ace4-edc2-df46-89e0-c771c0027801"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[126388, 2681, 821, 26, 75, "Input",ExpressionUUID->"8f154635-3069-364f-97d4-41240a2b0f21"],
+Cell[127212, 2709, 892, 26, 35, "Output",ExpressionUUID->"d0eb89d9-925f-094c-8528-4de49738fe24"]
 }, Open  ]]
 }
 ]

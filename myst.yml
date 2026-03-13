@@ -2,7 +2,7 @@
 version: 1
 project:
   id: 46641c1e-5557-49d5-a1ed-f8d6598785d1
-  # title:
+  title: 分岔理论及其应用
   # description:
   # keywords: []
   # authors: []
@@ -14,27 +14,36 @@ project:
         children:
           - file: 01intro.md
           - file: 02one_parameter_bifurcations.md
-      - title: 线性系统与奇点分类
+      - title: 线性系统与平衡点的分类
         children:
           - file: 11e_point.md
           - file: 12periodic_sol.md
-      - title: 典型分岔与范式
+      - title: 平衡点的单参数分岔
         children:
-          - file: 21two.md
+          - file: 21anjie.md
           - file: 22hopf.md
+          - file: 23normform.md
+      - title: 不动点的单参数分岔
+        children:
+          - file: 31anjie_map.md
+          - file: 32zhouqibeihua.md
+          - file: 33ns.md
       - title: 降阶方法
         children:
-          - file: 31central_manifold.md
-          - file: 32project_method.md
+          - file: 41central_manifold.md
+          - file: 42project_method.md
+      - title: 平衡点的双参数分岔
+        children:
+          - file: 51hopfhopf.md
       - title: 计算方法
         children:
-          - file: 41symbolic.md
-          - file: 42continuation.md
+          - file: 61symbolic.md
+          - file: 62continuation.md
+
 site:
   template: book-theme
   options:
-    hide_download: true
   # options:
-  #   favicon: favicon.ico
-  #   logo: site_logo.png
+    favicon: logo.svg
+  # logo: logo-removebg-preview.svg
   
