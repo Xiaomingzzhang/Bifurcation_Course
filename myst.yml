@@ -21,13 +21,15 @@ project:
       - title: 平衡点的单参数分岔
         children:
           - file: 21anjie.md
-          - file: 22hopf.md
-          - file: 23normform.md
+          - file: 22yincha.md
+          - file: 23hopf.md
+          - file: 24normform.md
       - title: 不动点的单参数分岔
         children:
           - file: 31anjie_map.md
           - file: 32zhouqibeihua.md
           - file: 33ns.md
+          - file: 34floquet.md
       - title: 降阶方法
         children:
           - file: 41central_manifold.md
@@ -45,5 +47,6 @@ site:
   options:
   # options:
     favicon: logo.svg
-  # logo: logo-removebg-preview.svg
+    logo: logo.svg
+    logo_dark: logo.svg
   

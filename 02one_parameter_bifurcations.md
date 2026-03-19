@@ -97,8 +97,8 @@ $$
 \ddot{x}=-\frac{\partial V}{\partial x}.
 $$
 根据 Lagrange-Dirichlet 定理, $V$ 的孤立极小点是稳定的, 而 $V$ 的孤立极大点是不稳定的. 这两个条件相应于:
-- $\frac{\partial V}{\partial x}(x^*)=0, \frac{\partial V}{\partial x}(x^*)>0$, 平衡点 $x^*$ 稳定;
-- $\frac{\partial V}{\partial x}(x^*)=0, \frac{\partial V}{\partial x}(x^*)<0$, 平衡点 $x^*$ 不稳定.
+- $\frac{\partial V}{\partial x}(x^*)=0, \frac{\partial^2 V}{\partial x^2}(x^*)>0$, 平衡点 $x^*$ 稳定;
+- $\frac{\partial V}{\partial x}(x^*)=0, \frac{\partial^2 V}{\partial x^2}(x^*)<0$, 平衡点 $x^*$ 不稳定.
 
 因此对于这类系统, 平衡点稳定性的判断条件与一维系统类似.
 ```
@@ -117,7 +117,7 @@ V(x,P)=\frac{1}{2}kx^2- Pl(1-\cos x).
 $$
 那么我们得到:
 $$
--\frac{1}{P}\frac{\partial V}{\partial x}=-\frac{k}{P}x+l\sin x=(-\frac{k}{P}+l)x+lx^3+O(x^5),
+-\frac{1}{P}\frac{\partial V}{\partial x}=-\frac{k}{P}x+l\sin x=(-\frac{k}{P}+l)x-lx^3+O(x^5),
 $$
 这正是音叉分岔的标准形式再加了一些高阶项. 当 $P$ 逐渐增大时, $x=0$ 这个平衡点变得不稳定, 同时系统分岔出两个稳定的对称的平衡点.
 
