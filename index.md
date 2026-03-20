@@ -6,7 +6,7 @@
 
 ## 记号规定
 
-- $\mathbb{Z}$ 表示整数集, $\mathbb{N}$ 表示正整数集;
+- $\mathbb{Z}$ 表示整数集, $\mathbb{N}$ 表示非负整数集;
 - $\mathbb{R}^n$ 表示 $n$ 维欧几里得空间, $x\in\mathbb{R}^n$ 表示为 $x=(x_1,\cdots,x_n)$; 特别地, $\mathbb{R}=\mathbb{R}^1$ 代表实数集;
 - $\mathbb{C}^n$ 表示 $n$ 维复空间, $\mathbb{C}$ 代表复数集;
 - $\mathbb{R}/a\mathbb{Z}$ 表示模 $a$ 的数集, 其中 $a$ 是正实数; 例如当 $a=2\pi$, 那么 $\mathbb{R}/2\pi\mathbb{Z}$ 就是表示模掉 $2\pi$ 的集合; 这种记号的原因是, 可以把相差 $ak$ ($k\in\mathbb{Z}$) 的数当作是同一个数; 那么 $\mathbb{R}/a\mathbb{Z}$ 也可以认为是长度为 $a$ 的圆周上的点的集合;

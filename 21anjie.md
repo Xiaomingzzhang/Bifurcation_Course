@@ -1,30 +1,6 @@
 # 鞍结分岔
 
-在本节我们叙述一个一般的一维自治系统在什么条件下会发生音叉分岔. 在叙述之前我们先来回顾一下隐函数定理.
-
-## 隐函数定理回顾
-
-```{prf:theorem}隐函数定理
-设 $f : \mathbb{R}^{n+m} \to \mathbb{R}^m$ 为一个连续可微函数, 并设 $\mathbb{R}^{n+m}$ 具有坐标 $(\mathbf{x}, \mathbf{y})$. 固定一点 $(\mathbf{a}, \mathbf{b}) = (a_1, \dots, a_n, b_1, \dots, b_m)$ 使得 $f(\mathbf{a}, \mathbf{b}) = \mathbf{0}$, 其中 $\mathbf{0} \in \mathbb{R}^m$ 是零向量. 
-
-如果雅可比矩阵:
-
-$$J_{f, \mathbf{y}}(\mathbf{a}, \mathbf{b}) = \left[ \frac{\partial f_i}{\partial y_j}(\mathbf{a}, \mathbf{b}) \right]$$
-
-是可逆的, 那么存在一个包含 $\mathbf{a}$ 的开集 $U \subset \mathbb{R}^n$, 使得存在唯一的函数 $g : U \to \mathbb{R}^m$, 满足 $g(\mathbf{a}) = \mathbf{b}$, 且对于所有 $\mathbf{x} \in U$, 都有 $f(\mathbf{x}, g(\mathbf{x})) = \mathbf{0}$. 
-
-此外, $g$ 是连续可微的. 将前一节所示雅可比矩阵的左半部分记为:
-
-$$J_{f, \mathbf{x}}(\mathbf{a}, \mathbf{b}) = \left[ \frac{\partial f_i}{\partial x_j}(\mathbf{a}, \mathbf{b}) \right]$$
-
-则 $g$ 在 $U$ 中的偏导数雅可比矩阵由以下矩阵乘积给出:
-
-$$\left[ \frac{\partial g_i}{\partial x_j}(\mathbf{x}) \right]_{m \times n} = -[J_{f, \mathbf{y}}(\mathbf{x}, g(\mathbf{x}))]_{m \times m}^{-1} [J_{f, \mathbf{x}}(\mathbf{x}, g(\mathbf{x}))]_{m \times n}.$$
-```
-
-当 $n=m=1$, 上面的结论就退化为: 如果 $f(x,y)=0$ 是平面上的光滑曲线, 且在某个点 $d_y f(x,y)\neq 0$, 那么这个在这个点附近, 曲线可以表示为一个函数 $y=g(x)$ 的图像, 即 $f(x,g(x))=0$ 在这个点附近局部地成立.
-
-例如球面 $\mathbb{S}^2=\{(x,y,z): ||(x,y,z)||=1\}$ 可以写成是函数 $f(x,y,z)-1=0$, 其中 $f(x,y,z)=||(x,y,z)||$. 当 $z>0$ 时, $d_z f(x,y,z)=2z>0$, 那么由隐函数定理, 球面可以写成是函数图像 $z=g(x,y)$, 实际上, 我们知道 $g(x,y)=\sqrt{1-x^2-y^2}$.
+在本节我们叙述一个一般的一维自治系统在什么条件下会发生音叉分岔.
 
 ## 鞍结分岔定理
 
@@ -74,9 +50,9 @@ $$
   
 上述定性分类与截断方程 $\dot{x}=a\mu+b\mu^2$ 一致. 那么我们有下面的定理
 ```{prf:theorem}鞍结分岔定理
-假设矢量场 $f(x,\mu)$ 满足 [](#a1). 那么方程 $\dot{x}=f(x,\mu)$ 发生鞍结分岔. 更具体地, 对于充分小的 $\mu$, 
-- 当 $ab\mu>0$ 微分方程没有平衡点;
-- 当 $ab\mu<0$ 微分方程有两个稳定性互异的平衡点 $x_{\pm}(\mu)$, 其距离原点的距离为 $O(|\mu|^{1/2})$.
+假设矢量场 $f(x,\mu)$ 满足 [](#a1). 那么方程 $\dot{x}=f(x,\mu)$ 发生鞍结分岔. 更具体地, 在 $x=0$ 这个小邻域内, 对于充分小的 $\mu$ 
+- 当 $ab\mu>0$ 方程没有平衡点;
+- 当 $ab\mu<0$ 方程有两个稳定性互异的平衡点 $x_{\pm}(\mu)$, 其距离原点的距离为 $O(|\mu|^{1/2})$.
 ```
 ## 平面矢量场的鞍结分岔: 降阶方法初探
 
