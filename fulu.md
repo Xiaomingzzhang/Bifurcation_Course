@@ -70,7 +70,7 @@ $$|R_\beta(\mathbf{x})| \leq \frac{1}{\beta!} \max_{|\alpha|=|\beta|} \max_{\mat
 
 如果 $\mathbf{f}:\mathbb{R}^{n}\rightarrow\mathbb{R}^m$, $\mathbf{f}$ 的形式如下:
 $$
-\mathbf{f}(\mathbf(x))=\Big(f_1(\mathbf(x)),f_2(\mathbf(x)),\cdots,f_m(\mathbf(x)) \Big).
+\mathbf{f}(\mathbf{x})=\Big(f_1(\mathbf{x}),f_2(\mathbf{x}),\cdots,f_m(\mathbf{x}) \Big).
 $$
 那么 $\mathbf{f}$ 展开即只需要对 $m$ 个分量 $f_k$ 作上面的展开就好.
 
