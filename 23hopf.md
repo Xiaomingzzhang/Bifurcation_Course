@@ -145,7 +145,7 @@ $$
 $$
 其中 $j+k=2$. 那么如果可取:
 $$
-h_{jk}=\frac{g_{jk}}{j\lambda-k\bar{\lambda}-\lambda}
+h_{jk}=\frac{g_{jk}}{j\lambda+k\bar{\lambda}-\lambda}
 $$
 即可消去全部的二次项, 其中 $j+k=2$. 而当 $\mu=0$ 时, 所有的 $j,k$ 的组合 (使得 $j+k=2$) 都使得上式分母不为 $0$, 因此我们可消去所有的二次项.
 
@@ -157,13 +157,13 @@ $$
 
 我们可以继续刚刚的操作, 定义合适的 $h$ 来消去三次项, 这时 $h$ 是三阶的关于 $w,\bar{w}$ 的多项式. 三阶的接近恒等映射的变换不会改变更低阶的项, 但也同样会改变四阶及以上的项, 类似的分析得到 $h_{jk}$ 的系数仍旧为:
 $$
-h_{jk}=\frac{\tilde{g}_{jk}}{j\lambda-k\bar{\lambda}-\lambda},\quad j+k=3.
+h_{jk}=\frac{\tilde{g}_{jk}}{j\lambda+k\bar{\lambda}-\lambda},\quad j+k=3.
 $$
 当 $\mu=0$, 在所有 $j+k=3$ 的组合中 $j=2,k=1$ 可使得分母为 $0$, 因此, 我们可消去除了 $w^2\bar{w}$ 以外的所有的三次项.
 
 公式
 $$
-h_{jk}=\frac{g_{jk}}{j\lambda-k\bar{\lambda}-\lambda},\quad j+k=n,n\geq 2
+h_{jk}=\frac{g_{jk}}{j\lambda+k\bar{\lambda}-\lambda},\quad j+k=n,n\geq 2
 $$
 是通用的. 不难证明可以消去全部的四次项. 仍然使用 $z$ 的记号. 经过三次变换以后, 我们得到:
 $$
