@@ -173,7 +173,7 @@ $$
 系数 $c_1(0)$ 的实部为:
 $$
 \label{hopf_c1}
-\text{Re}(c_1(0))=\frac{1}{2\omega_0}\text{Re}\Big(ig_{20}(0,0,0)g_{11}(0,0,0)+\omega_0 g_{21}(0,0,0)\Big),
+\text{Re}(c_1(0))=\frac{1}{2\omega_0^2}\text{Re}\Big(ig_{20}(0,0,0)g_{11}(0,0,0)+\omega_0 g_{21}(0,0,0)\Big),
 $$
 **其中 $g_{jk}(0,0,0)$ 为 [](#eqz) 中相应项的系数.**
 ```{prf:assumption}
@@ -291,7 +291,7 @@ $$
 取合适的 $p$ 使得 $\langle p,q\rangle=1$. 复矢量 $p$ 与 $\bar{q}$ 垂直, 即 $\langle p,\bar{q}\rangle=0$. 实际上, 
 $$
 \bar{\lambda}\langle p,\bar{q}\rangle&=\bar{\lambda}(\bar{p}^{T}\bar{q})=\bar{p}^{T}(\bar{\lambda}\bar{q})=\bar{p}^{T}A\bar{q},\\
-\lambda\langle p,\bar{q}\rangle&=\lambda\bar{p}^{T}\bar{q}=(\lambda\bar{p}^{T}\bar{q})=\bar{p}^{T}A\bar{q}.
+\lambda\langle p,\bar{q}\rangle&=\lambda\bar{p}^{T}\bar{q}=(\lambda\bar{p}^{T})\bar{q}=\bar{p}^{T}A\bar{q}.
 $$
 由于 $\lambda\neq\bar{\lambda}$, 只能有 $\langle p,\bar{q}\rangle=0$.
 
@@ -332,9 +332,3 @@ $$
 判断一个平面系统是否发生 Hopf 分岔, 要在分岔点验证条件 [](#hopfa1). 如果不能保证当 $\mu$ 变化时 $x=0$ 是系统的平衡解, 即平衡解依赖于参数 $\mu$, 不妨设其为 $x^{*}(\mu)$. 做坐标变换 $\xi=x-x^{*}(\mu)$, 仍然以 $\mu$ 作为参数, 即可保证新变量下 $\xi=0$ 在 $\mu$ 变动时总为平衡点.
 
 验证条件 [](#hopfa1) 后, 则需要计算 [](#hopfa2) 中的系数 $c_{1}(0)$ 来判断其发生了 Hopf 分岔.
-
-
-
-
-
-
