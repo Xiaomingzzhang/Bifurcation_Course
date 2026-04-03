@@ -331,4 +331,78 @@ $$
 ## 计算实例
 判断一个平面系统是否发生 Hopf 分岔, 要在分岔点验证条件 [](#hopfa1). 如果不能保证当 $\mu$ 变化时 $x=0$ 是系统的平衡解, 即平衡解依赖于参数 $\mu$, 不妨设其为 $x^{*}(\mu)$. 做坐标变换 $\xi=x-x^{*}(\mu)$, 仍然以 $\mu$ 作为参数, 即可保证新变量下 $\xi=0$ 在 $\mu$ 变动时总为平衡点.
 
-验证条件 [](#hopfa1) 后, 则需要计算 [](#hopfa2) 中的系数 $c_{1}(0)$ 来判断其发生了 Hopf 分岔.
+考虑 Van der Pol 方程:
+$$
+\dot{x}&=y=f_1(x,y,\mu),\\
+\dot{y}&=(\mu-x^2)y-x=f_2(x,y,\mu).
+$$
+以 $\mu$ 为参数. 容易看到, 系统的零点总是平衡点, 而
+
+$$
+A=
+\begin{pmatrix}
+    \frac{\partial f_1}{\partial x}&\frac{\partial f_1}{\partial x}\\
+    \frac{\partial f_2}{\partial x}&\frac{\partial f_1}{\partial x}
+\end{pmatrix}_{(x,y)=(0,0)}
+=\begin{pmatrix}
+    0&1\\
+    -1&\mu
+\end{pmatrix}.
+$$
+
+特征多项式为:
+$$
+\text{det}|A-\lambda I|=\lambda^2-\mu\lambda+1.
+$$
+当 $\mu$ 较小时, 特征根为:
+$$
+\frac{1}{2}\mu\pm \frac{i}{2}\sqrt{4-\mu^2}.
+$$
+令
+$$
+\lambda(\mu)=\alpha(\mu)+i\omega(\mu),\quad \alpha(\mu)=\frac{1}{2}\mu,\quad\omega(\mu)=\frac{i}{2}\sqrt{4-\mu^2}.
+$$
+那么
+$$
+\alpha(0)=0,\quad\alpha'(0)=\frac{1}{2},\quad \omega(0)=1>0.
+$$
+因此 [](#hopfa1) 成立. 为了验证 [](#hopfa2), 需要计算 $c_1(0)$ 的实部.
+
+取
+$$
+q&=\big(\frac{1}{2}(\mu-i\sqrt{4-\mu^2}),1\big)^{T},\\
+\hat{p}&=\big(\frac{1}{2}(-\mu-i\sqrt{4-\mu^2}),1\big)^{T}
+$$
+使得 $Aq=\lambda(\mu)q,A^{T}\hat{p}=\bar{\lambda}(\mu)\hat{p}$.
+令
+$$
+p=\frac{1}{\langle q,\hat{p}\rangle}\hat{p}.
+$$
+那么可以验证 $\langle q,p\rangle=1, \langle q,\hat{p}\rangle=0$.
+
+下面我们来计算多重线性型. 由于矢量场中没有平方项, 因此 $B(\xi,\eta)=0$.
+
+$$
+C(\xi,\eta,\gamma)=
+\begin{pmatrix}
+    \sum_{i_1=1}^{2}\sum_{i_2=1}^{2}\sum_{i_3=1}^{2}\frac{\partial ^3f_1}{\partial x_{i_1}\partial x_{i_2}\partial x_{i_3}}(0)\xi_{i_1}\eta_{i_2}\gamma_{i_3}\\
+    \sum_{i_1=1}^{2}\sum_{i_2=1}^{2}\sum_{i_3=1}^{2}\frac{\partial ^3f_1}{\partial x_{i_1}\partial x_{i_2}\partial x_{i_3}}(0)\xi_{i_1}\eta_{i_2}\gamma_{i_3}
+\end{pmatrix}
+=
+\begin{pmatrix}
+    0\\
+    -2\xi_1\eta_1\gamma_2-2\xi_1\eta_2\gamma_1-2\xi_2\eta_1\gamma_1
+\end{pmatrix}.
+$$
+上式中 $x_1=x,x_2=y$. 那么
+$$
+\text{Re}(c_1(0))&=\frac{1}{2}\text{Re}g_{21}(0,0,0)\\
+&=\frac{1}{2}\text{Re}(\langle p,C(q,q,\bar{q})\rangle)
+&=-\frac{1}{2}(4-\mu^2)^{3/2}<0.
+$$
+因此系统在 $\mu=0$ 时发生了超临界的 Hopf 分岔:
+```{figure} ./asserts/figs/23_hopf_van_de_pol.png
+:alt: 视频无法加载
+:width: 100%
+:align: center
+```
