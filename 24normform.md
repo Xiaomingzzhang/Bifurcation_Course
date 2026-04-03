@@ -58,7 +58,7 @@ $$\langle L_1(P), Q\rangle = \sum_{i=1}^n \langle p_i, (DQ(x)A^* x)_i\rangle = \
 
 这完成了 $(ad_A)^* = ad_{A^*}$ 的证明.
 
-<!-- ## 映射: $(ad_A)^*=ad_{A^*}$ 的证明
+## 映射: $(ad_A)^*=ad_{A^*}$ 的证明
 
 只需证明: 算子 $L_A: P(y) \mapsto P(Ay)$ 的共轭为 $L_{A^*}: Q(y) \mapsto Q(A^*y)$
 
@@ -68,20 +68,13 @@ $$\langle P(Ay), Q(y)\rangle = \langle P(y), Q(A^*y)\rangle.$$
 对于标量多项式 $f(y),g(y)$, 上面的等式退化为:
 $$\langle f(Ay), g(y)\rangle = \langle f(y), g(A^*y)\rangle.$$
 
-考虑等式右边. 引入中间变量 $u = A^*y$ (在实空间下 $A^* = A^T$). 故 $u_j = \sum_{k=1}^n a_{k,j} y_k$.
+考虑等式右边. 引入中间变量 $u = A^*y$ (在实空间下 $A^* = A^T$). 故 $u_k = \sum_{j=1}^n a_{jk} y_j$.
 根据多元复合函数的链式法则, 偏导数算子 $\nabla_y$ 作用于函数 $g(u)$ 时满足:
-$$\frac{\partial}{\partial y_i} = \sum_{j=1}^n \frac{\partial u_j}{\partial y_i} \frac{\partial}{\partial u_j}=$$
-
+$$\frac{\partial}{\partial y_i} = \sum_{k=1}^n \frac{\partial u_k}{\partial y_i} \frac{\partial}{\partial u_k}=\sum_{k=1}^n a_{ik}\frac{\partial}{\partial u_k}$$
 写成向量算子形式, 即:
-$$\nabla_y = A^T \nabla_u = A^* \nabla_u$$
-由此推得, 作用在 $g(u)$ 上的算子 $f(\nabla_y)$ 等价于 $f(A^* \nabla_u)$. 
+$$\nabla_y = A \nabla_u$$
 
 将上述算子关系代入右边内积定义:
-$$\langle f(y), g(A^*y)\rangle = \left[ f(\nabla_y) g(A^*y) \right]_{y=0} = \left[ f(A^* \nabla_u) g(u) \right]_{u=0}$$
+$$\langle f(y), g(A^*y)\rangle = \left[ f(\nabla_y) g(A^*y) \right]_{y=0} = \left[ f(A \nabla_u) g(u) \right]_{u=0}.$$
 
-注意到在内积定义中, 算子 $f(\partial)$ 作用于 $g(y)$ 的规则是: $y^\alpha$ 被 $\partial^\alpha$ 替换. 
-根据伴随算子的性质, 矩阵 $A$ 作用于微分算子向量 $\nabla$ 时, 其效果等同于其共轭矩阵 $A^*$ 作用于变量空间. 
-经过算子替换与变量对等性分析, 我们得到:
-$$\langle f(Ay), g(y)\rangle = \langle f(y), g(A^*y)\rangle.$$
-
-自然地, 上面的结论可推广到矢量形式. -->
+以上证明了标量形式的结论. 自然地, 标量形式的结论的结论可推广到矢量形式.
