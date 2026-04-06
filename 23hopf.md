@@ -341,8 +341,8 @@ $$
 $$
 A=
 \begin{pmatrix}
-    \frac{\partial f_1}{\partial x}&\frac{\partial f_1}{\partial x}\\
-    \frac{\partial f_2}{\partial x}&\frac{\partial f_1}{\partial x}
+    \frac{\partial f_1}{\partial x}&\frac{\partial f_1}{\partial y}\\
+    \frac{\partial f_2}{\partial x}&\frac{\partial f_2}{\partial y}
 \end{pmatrix}_{(x,y)=(0,0)}
 =\begin{pmatrix}
     0&1\\
