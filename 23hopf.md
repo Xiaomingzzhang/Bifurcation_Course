@@ -186,6 +186,7 @@ $\text{Re}(c_1(0))\neq 0$.
 - 当参数满足 $\alpha'(0)\text{Re}(c_1(0))\mu<0$ 时方程存在唯一一个周期解, 周期解的振幅为 $O(|\mu|^{1/2})$; 当 $\text{Re}(c_1(0))<0$ 周期解稳定, 当 $\text{Re}(c_1(0))>0$ 周期解不稳定.
 ```
 ```{prf:proof}
+:numbered: false
 先前已经论述, 在 [](#hopfa1) 的假设下, 我们将系统在原点附近进行坐标变换得到了 [](#hopf_eq_norm_form). 取极坐标 $z=re^{i\theta}$, 代入 [](#hopf_eq_norm_form) 并分别取实部与虚部得到:
 $$
 \dot{r}&=\alpha(\mu)r+\xi(\mu)r^3+O(|r|^5),\\

@@ -112,6 +112,7 @@ $$
 在相流的作用下, $E^{s},E^{c}$ 和 $E^{u}$ 都是不变的子空间.
 ```
 ```{prf:proof}
+:numbered: false
 仅考虑 $E^{s}$ 的情况. 首先证明 $E^s$ 在 $A$ 的作用下不变. 设 $A$ 的特征值为 $\lambda_1, \dots, \lambda_k$, 其中 $\text{Re}(\lambda_i) < 0$ 的特征值对应的代数重数为 $n_i$. 稳定子空间定义为这些特征值对应的广义特征子空间的直和:
 $$
 E^s = \bigoplus_{\text{Re}(\lambda_i) < 0} \text{Ker}(A - \lambda_i I)^{n_i}.

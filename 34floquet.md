@@ -47,6 +47,7 @@ $$
 其中 $X$ 为 $n\times n$ 的矩阵, $I$ 为单位矩阵.
 ```
 ```{prf:proof}
+:numbered: false
 由 $\phi(t,x_0,t_0)$ 满足 [](#floquet_basic_eq), 代入方程中并两边对于 $x_0$ 求导得到:
 $$
 \dot{\phi}_{x_0}(t,x_0,t_0)=\frac{d}{dt}\phi_{x_0}(t,x_0,t_0)=f_x(\phi(t,x_0,t_0),t)\phi_{x_0}(t,x_0,t_0).
@@ -71,6 +72,7 @@ $$
 特别地, 如果 $\phi(T,x_0,0)=x_0$, 那么 $\Phi(T,0)(x_0)f(x_0)=f(x_0)$, 即 $f(x_0)$ 是 $\Phi(T,0)(x_0)$ 的 1 特征值相应的特征向量 (前提是 $f(x_0)\neq 0$).
 ```
 ```{prf:proof}
+:numbered: false
 利用非自治系统解的性质:
 $$
 \phi(t,x_0,t_0)=\phi(t,\phi(t_1,x_0,t_0),t_1),
@@ -108,6 +110,65 @@ $$
 假设 $n\times n$ 的矩阵 $C$ 非奇异, 那么存在矩阵 $B$ 使得 $e^{B}=C$.
 ```
 
+```{prf:theorem} Floquet 定理
+:label: thm_floquet
+[](#floquet_matrix_eq) 的每个基解矩阵的形式如下:
+$$
+X(t)=P(t)e^{Bt},
+$$
+其中 $P$ 也是周期 $T$ 的矩阵, $B$ 是常数矩阵.
+```
+```{prf:proof}
+:numbered: false
+若 $X(t)$ 是基解矩阵, 那么由于 $A(t)$ 的周期性, $X(t+T)$ 也是基解矩阵. 那么存在非奇异矩阵 $C$ 使得
+$$
+X(t+T)=X(t)C.
+$$
+实际上, 取 $C=X(0)^{-1}X(T)$, 那么 $X(t)C$ 与 $X(t+T)$ 在 $t=0$ 处具有相同的初值, 由解的存在唯一性, 上式对于任意的时间 $t$ 恒成立.
+
+由之前的引理, 存在 $B$ 使得 $e^{BT}=C$. 令 $P(t)=X(t)e^{-Bt}$. 那么 $P(t)$ 满足定理的条件, 只需说明 $P(t)$ 是 $T$ 周期的即可.
+$$
+P(t+T)=X(t+T)e^{-B(t+T)}=X(t)e^{BT}e^{-B(t+T)}=P(t).
+$$
+```
+
+```{prf:corollary}
+存在非奇异的依赖于时间的变换, 将线性方程 $\dot{x}=A(t)x$ 变为常系数方程.
+```
+```{prf:proof}
+:numbered: false
+取 $P(t),B$ 如 [](#thm_floquet) 所述. 取坐标变换 $x=P(t)y$. 由于
+$$
+0=\frac{d}{dt}(P(t)^{-1}P(t))=(\frac{d}{dt}P(t)^{-1})P(t)+P(t)^{-1}\dot{P}(t),
+$$
+我们有:
+$$
+\frac{d}{dt}P(t)^{-1}=-P(t)^{-1}\dot{P}(t)P(t)^{-1}.
+$$
+那么
+$$
+\dot{y}=P^{-1}(AP-\dot{P})y.
+$$
+由于 $P(t)=X(t)e^{-Bt}$, 知 $\dot{P}=AP-PB$, 代入上式即得到了结论.
+```
+```{prf:definition}
+如果 $X(t)$ 是 [](#floquet_matrix_eq) 的基解矩阵, 满足 $X(t+T)=X(t)C$ 的矩阵 $C$ 称为单值矩阵. 特别地, 如果 $X(0)=I$, 则 $C=X(T)$. $C$ 的特征值称为是 [](#floquet_matrix_eq) 的特征乘子.
+```
+```{prf:remark}
+特征乘子不依赖于基解矩阵的选择. 实际上, 若 $Y(t)$ 也是基解矩阵, 那么存在非奇异矩阵 $D$ 使得 $Y(t)=X(t)D$ (利用解的存在唯一性). 于是
+$$
+Y(t+T)=X(t+T)D=X(t)CD=Y(t)D^{-1}CD.
+$$
+这说明 $Y(t)$ 与 $X(t)$ 的单值矩阵是相似的.
+```
+
+```{prf:theorem}
+对于 $C^{1}$ 类的矢量场 $\dot{x}=f(x)$, 如果系统存在周期轨道 $x^*(t)$, 并且线性周期系统:
+$$
+\dot{X}=A(t)X
+$$
+的特征乘子的模都小于 1 (排除一个为 1 的特征乘子), 那么周期轨道是渐进稳定的, 其中 $A(t)=f_x(x^*(t))$.
+```
 ## 周期轨道附近的 Poincaré 映射
 对于自治系统 $\dot{x}=f(x)$, 可在周期轨道附近取一个超平面 $\Sigma$, 使得周期轨道横截地穿过该平面. 在横截点附近的一个邻域 $U$ 内 (限制在该超平面上), 建立 Poincaré 映射:
 $$
@@ -130,6 +191,7 @@ $$
 $$
 ```
 ```{prf:proof}
+:numbered: false
 由映射 $P$ 的定义, 我们有:
 $$
 \label{floquet_eq_poincare}
@@ -148,7 +210,7 @@ $$
 $$
 \phi_x(T,x^*,0)f(x^*)=f(x^*).
 $$
-那么在上述空间分解 $(\xi,a)$ 下, 线性映射 $\phi_x(T,x^*,0)$ 的矩阵具有形式:
+那么在上述空间分解 $(a,\xi)$ 下, 线性映射 $\phi_x(T,x^*,0)$ 的矩阵具有形式:
 $$
 \phi_x(T,x^*,0)=
 \left(
@@ -161,6 +223,9 @@ $$
 \end{array}
 \right).
 $$
+```
+```{prf:remark}
+对于非自治周期系统 $\dot{x}=f(x,t)$, 将其扩充为 $n+1$ 阶的系统, 那么取特定的相位为 Poincaré 截面, 此时 Poincaré 映射去除掉的 1 乘子对应的特征向量就是额外增加的维度的方向.
 ```
 ## Floquet 理论在分段光滑系统与碰撞系统的推广
 如果系统存在切换行为或者类似碰撞的现象, 并且系统的轨线横截地穿过切换面或者碰撞面, Floquet 理论仍然是适用的, 不过此时时间推进映射的导数要乘以一个与切换或者碰撞相关的矩阵, 文献中常常称作是跳跃矩阵.
@@ -241,6 +306,7 @@ d\tau(x)=-\frac{1}{\nabla H\cdot f_1}\nabla H^{T}\Phi_1(\tau(x),t_0),\\
 $$
 ```
 ```{prf:proof}
+:numbered: false
 由于
 $$
 H(\phi_1(\tau(x),x,t_0))=0,
@@ -258,6 +324,7 @@ $$
 $$
 ```
 ```{prf:proof} [](#piecewise_floquet) 的证明
+:numbered: false
 $$
 \frac{d}{dx}\psi(x)&=\frac{d}{dx}\phi_2(t_1,\phi_1(\tau(x),x,t_0),\tau(x))\\
 &=\phi_{2x}(t_1,\phi_1(\tau(x),x,t_0),\tau(x))\big(\dot{\phi}_1(\tau(x),x,t_0)d\tau(x)+\phi_{1x}(\tau(x),x,t_0)\big)\\
@@ -278,6 +345,7 @@ $$
 如果 $f_2$ 定义在超曲面 $\{x:H(x)=0\}$ 上, 那么跳跃矩阵 $S$ 的零空间由 $f_2-f_1$ 张成.
 ```
 ```{prf:proof}
+:numbered: false
 由于 $\nabla H\cdot f_2=0$, 我们有
 $$
 S(f_2-f_1)=f_2-f_1+(f_2-f_1)\frac{\nabla H^{T}(f_2-f_1)}{\langle \nabla H,f_1\rangle}=0.
@@ -322,6 +390,7 @@ $$
 其中 $x_1$ 为轨线刚刚到达 $\{x:H(x)=0\}$ 的状态.
 ```
 ```{prf:proof}
+:numbered: false
 $$
 \frac{d}{dx}\psi(x)&=\frac{d}{dx}\phi(t_1,G(\phi(\tau(x),x,t_0)),\tau(x))\\
 &=\phi_x(t_1,G(x_1),\tau(x))dG(x_1)\big(\dot{\phi}(\tau(x),x,t_0)d\tau(x)+\phi_x(\tau(x),x,t_0)\big)

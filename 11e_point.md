@@ -26,6 +26,7 @@ $$
 ```
 
 ```{prf:proof}
+:numbered: false
 1. 如果 $A$ 的特征值都是实数, 且有两个独立的特征向量 $v_1,v_2$, 那么令矩阵 $B=[v_1,v_2]$;
 1. 如果 $A$ 的二重特征值 $\lambda$ 仅有一个独立的特征向量, 那么存在 $v\neq 0$, $(A-\lambda I)v\neq 0,(A-\lambda I)^2 v=0$, 取 $B=[(A-\lambda I)v,v]$;
 1. 如果 $A$ 的特征值为一对共轭复数 $\lambda=\alpha \pm i\omega$, 取 $v=v_1+i v_2$ 为 $A$ 的特征值 $\alpha - i\omega$ 对应的特征向量, 即
