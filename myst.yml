@@ -26,10 +26,11 @@ project:
           - file: 24normform.md
       - title: 不动点的单参数分岔
         children:
+          - file: 34floquet.md
           - file: 31anjie_map.md
           - file: 32zhouqibeihua.md
+          # - file: 32circle_map.md
           - file: 33ns.md
-          - file: 34floquet.md
       - title: 降阶方法
         children:
           - file: 41central_manifold.md
