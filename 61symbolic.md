@@ -187,6 +187,82 @@ $$
 $$
 
 以上代码的计算思路可以进行推广, 应用到其他分岔的范式系数的计算.
+
+## NS 分岔 $c_{1}(\mu)$ 的计算
+
+与之前的思路类似, 这里我们给出代码:
+```mathematica
+ClearAll["Global`*"];
+GeneratePoly[w_, wb_, g_, l_Integer] := 
+  Module[{indices, terms},(*1. 找到所有满足 j+k=
+   l 的非负整数解*)(*FrobeniusSolve[{1,1},l] 会直接返回 {{0,l},{1,l-1},...,{l,0}}*)
+   indices = FrobeniusSolve[{1, 1}, l];
+   (*2. 构造每一项：(1/(j! k!))*h[j,k]*w^j*wb^k*)
+   terms = Table[
+     With[{j = idx[[1]], k = idx[[2]]}, (1/(j! k!))*Subscript[g, j, k]*
+       w^j*wb^k], {idx, indices}];
+   (*3. 求和并返回*)Total[terms]];
+GenerateRules[l_Integer] := 
+  Module[{indices, terms},(*1. 找到所有满足 j+k=
+   l 的非负整数解*)(*FrobeniusSolve[{1,1},l] 会直接返回 {{0,l},{1,l-1},...,{l,0}}*)
+   indices = FrobeniusSolve[{1, 1}, l];
+   (*2. 替换规则*)
+   terms = Table[
+     With[{j = idx[[1]], 
+       k = idx[[2]]}, {Subscript[h, j, k] -> 
+        Subscript[g, j, k]/(\[Lambda] - \[Lambda]b^k*\[Lambda]^j), 
+       Subscript[hb, j, k] -> 
+        Subscript[gb, j, 
+         k]/(\[Lambda]b - \[Lambda]b^j*\[Lambda]^k)}], {idx, indices}];
+   (*3. 返回替换规则*)terms // Flatten];
+SequentialReplace[expr_, rules_List] := Fold[ReplaceAll, expr, rules];
+(*变换为:w=z+h2(z,zb), 计算逆变换z=w-h2(w,wb)+p3(w,wb)的三次项的系数*)
+(*三次项系数*)
+indices = FrobeniusSolve[{1, 1}, 3];
+(*w=z+h2(z,zb)中代入z=w-h2(w,wb)+p3(w,wb)*)
+expression = 
+  w - z - GeneratePoly[z, zb, h, 2] /. {z -> 
+      w - GeneratePoly[w, wb, h, 2] + GeneratePoly[w, wb, p, 3], 
+     zb -> wb - GeneratePoly[wb, w, hb, 2] + 
+       GeneratePoly[wb, w, pb, 3]} // Expand;
+(*求解满足i+j=3的p[i,j]的系数*)
+solvelist = 
+  Table[With[{i = idx[[1]], j = idx[[2]]}, Subscript[p, i, j]], {idx, 
+    indices}];
+coep = Table[
+   With[{i = idx[[1]], j = idx[[2]]}, 
+    Coefficient[expression, w^i wb^j] /. {w -> 0, wb -> 0}], {idx, 
+    indices}];
+sol = Solve[# == 0 & /@ coep, solvelist][[1]];
+solb = sol /. {p -> pb, h -> hb, hb -> h};
+rule1 = z -> (w - GeneratePoly[w, wb, h, 2] + 
+     GeneratePoly[w, wb, p, 3]);
+rule2 = zb -> (wb - GeneratePoly[wb, w, hb, 2] + 
+     GeneratePoly[wb, w, pb, 3]);
+rule3 = zprime -> (\[Lambda] z + GeneratePoly[z, zb, g, 2] + 
+     GeneratePoly[z, zb, g, 3]);
+rule4 = zbprime -> (\[Lambda]b zb + GeneratePoly[zb, z, gb, 2] + 
+     GeneratePoly[zb, z, gb, 3]);
+preresult = zprime + GeneratePoly[zprime, zbprime, h, 2];
+result = 
+  SequentialReplace[
+   preresult, {rule3, rule4, rule2, rule1, sol, solb, GenerateRules[2]}];
+(*验证二次项系数,应该全部为0,提取三次项系数*)
+indices2 = FrobeniusSolve[{1, 1}, 2];
+Table[With[{i = idx[[1]], j = idx[[2]]}, 
+   Coefficient[result, w^i wb^j] /. {w -> 0, wb -> 0}], {idx, 
+   indices2}] // Simplify
+Coefficient[result, w^2 wb] /. {w -> 0, wb -> 0} // Simplify
+```
+得到二次项系数全部为 0, 三次项 $w^2\bar{w}$ 的系数为:
+$$
+\frac{1}{2} \left(\frac{\text{$\lambda $b} g_{0,2} \text{gb}_{0,2}}{\lambda -\text{$\lambda $b}^2}-\frac{g_{1,1} \left(g_{2,0} (3 \lambda  \text{$\lambda $b}-2 \lambda -\text{$\lambda $b})+2 (\lambda -1) \lambda  \text{gb}_{1,1}\right)}{(\lambda -1) \lambda  (\text{$\lambda $b}-1)}+g_{2,1}\right)
+$$
+
+```{prf:remark}
+有些教材上 $c_1(\mu)$ 的表达式与上式不同, 实际上, 由于 $c_1(\mu)$ 仅在分岔点处的计算有意义, 利用 $|\lambda|=1$ 即可得到等价的式子.
+```
+
 ## 多重线性型的计算
 在投影法中, 经常要计算矢量场的多重线性型, 特别是当维数较高且矢量场表达式复杂时, 手工计算非常繁琐且很容易出错.
 
