@@ -352,3 +352,109 @@ $$
 \left\{0,\frac{\zeta _2 \eta _2 \xi _2 F^{(3)}(-v)}{m}\right\},
 $$
 与书本中公式相同.
+
+## 中心流形的计算: 坐标变换法
+
+下面我们给出一个例子, 来看如何使用程序计算中心流形.
+
+考虑 Lorenz 系统:
+$$
+\begin{aligned}
+\dot{x}& = \sigma (y - x), \\
+\dot{y}& = x(\rho - z) - y, \\
+\dot{z}& = xy - \beta z.
+\end{aligned}
+$$
+这里将取 $\rho=1$. 首先我们定义矢量场, 并得到系统在原点的 Jacobi 矩阵的特征值与特征矢量:
+```mathematica
+f[x_, y_, z_] := {\[Sigma] (y - x), x - y - x z, -\[Beta] z + x y};
+A = Grad[f[x, y, z], {x, y, z}] /. {x -> 0, y -> 0, z -> 0};
+Eigensystem[A]
+```
+我们得到:
+$$
+\left(
+\begin{array}{ccc}
+ 0 & -\beta  & -\sigma -1 \\
+ \{1,1,0\} & \{0,0,1\} & \{-\sigma ,1,0\} \\
+\end{array}
+\right)
+$$
+这样特征值相应的特征矢量排成一列就是我们要的线性变换矩阵, 这样定义新系统为:
+```mathematica
+P = Transpose[Eigensystem[A][[2]]];
+newf[u_, v_, w_] = (Inverse[P] . f[x, y, z]) /. 
+   Thread[{x, y, z} -> P . {u, v, w}];
+```
+
+下面我们假设中心流形的形式, 并代入到不变方程中. 要计算到直到 $k$ 阶的中心流形, 其一般形式是一个 $n$ 维的 $m$ 个变量的直到 $k$ 阶的 $n$ 维多项式. 对于我们这个例子, $n=2,m=1$, 并取 $k=5$. 为此我们定义一个一般的函数, 能生成任意的这种多项式, 这样程序稍作修改即可计算任意形式的中心流形:
+```mathematica
+(*定义一个函数,它生成n维m个变量的,从 k1 阶到 k2 阶的多项式向量*)
+h[n_, m_, k1_, k2_, var_] := 
+  Module[{indices, terms, polys, coeffs = {}},(*1. 找到所有满足 k1<=d_1+...+
+   d_m<=k2 的非负整数解*)(*遍历所有的目标阶数 s (从 k1 到 k2),对每个 s 找到精确解并展平合并*)
+   indices = 
+    Flatten[Table[FrobeniusSolve[ConstantArray[1, m], s], {s, k1, k2}],
+      1];
+   polys = 
+    Table[(*2. Construct each term for the i-th dimension*)
+     terms = Table[
+       With[{idx = currIdx},(*将当前生成的系数收集到 coeffs 列表中*)
+        AppendTo[coeffs, Subscript[c, i, Sequence @@ idx]];
+        (*Subscript[c,i,idx1,idx2...]*var[1]^idx1*var[2]^idx2...*)
+        Subscript[c, i, Sequence @@ idx]*
+         Product[var[[p]]^idx[[p]], {p, 1, m}]], {currIdx, indices}];
+     (*3. Sum and return*)Total[terms], {i, 1, n}];
+   {polys, coeffs}];
+(*使得输入n,m,k,var时中心流形默认从2阶开始到k阶*)
+h[n_, m_, k_, var_] := h[n, m, 2, k, var];
+```
+输入
+```mathematica
+h[2, 2, 3, {x, y}][[1]]
+```
+我们得到:
+$$
+\left\{x^3 c_{1,3,0}+x^2 y c_{1,2,1}+x^2 c_{1,2,0}+x y^2 c_{1,1,2}+x y c_{1,1,1}+y^3 c_{1,0,3}+y^2 c_{1,0,2},x^3 c_{2,3,0}+x^2 y c_{2,2,1}+x^2 c_{2,2,0}+x y^2 c_{2,1,2}+x y c_{2,1,1}+y^3 c_{2,0,3}+y^2 c_{2,0,2}\right\}
+$$
+这是一个 $2$ 维的以 $x,y$ 为变量的二阶到三阶的多维多项式, 且有待定系数, 这正是我们想要的函数.
+
+再定义一个用于提取一个多项式系数, 并且使得多项式系数全为 $0$ 来求解待定系数的函数:
+```mathematica
+(*通用的系数提取与求解函数*)
+SolveManifoldCoefficients[eq_, vars_, coeffs_, k_] := 
+  Module[{rules, eqList, 
+    sol},(*利用 CoefficientRules 提取每一维多项式中所有项的系数规则*)(*Expand 用于确保多项式被完全展\
+开,避免提取遗漏*)rules = Flatten[CoefficientRules[Expand[#], vars] & /@ eq];
+   (*过滤出所有总阶数小于等于 k 的项,并提取出其对应的系数表达式*)
+   eqList = Cases[rules, ({n_} -> coef_) /; n <= k :> coef];
+   (*令所有提取出的系数表达式等于 0,并对未知系数 coeffs 进行求解*)
+   sol = Solve[Thread[eqList == 0], coeffs];
+   sol[[1]]];
+```
+
+利用这两个函数我们就可以进行最终的中心流形的计算了:
+```mathematica
+order = 5;
+centralmanifold = h[2, 1, order, {u}][[1]];
+coeffs = h[2, 1, order, {u}][[2]];
+eq = D[centralmanifold, 
+       u]*(newf[u, v, w][[1]] /. Thread[{v, w} -> centralmanifold]) - 
+     newf[u, v, w][[2 ;; 3]] /. Thread[{v, w} -> centralmanifold] // 
+   Simplify;
+sol = SolveManifoldCoefficients[eq, {u}, coeffs, order]
+finalcentralmanifold = centralmanifold /. sol
+reducedsystem = 
+ Series[newf[u, v, w][[1]] /. 
+   Thread[{v, w} -> finalcentralmanifold], {u, 0, order}]
+```
+得到一系列结果:
+$$
+\left\{c_{1,2}\to \frac{1}{\beta },c_{1,3}\to 0,c_{1,4}\to \frac{\beta  \sigma -\beta +2 \sigma ^2+2 \sigma }{\beta ^3 (\sigma +1)^2},c_{1,5}\to 0,c_{2,2}\to 0,c_{2,3}\to -\frac{1}{\beta  (\sigma +1)^2},c_{2,4}\to 0,c_{2,5}\to \frac{-5 \beta  \sigma +\beta -2 \sigma ^2-2 \sigma }{\beta ^3 (\sigma +1)^4}\right\}\\
+\left\{\frac{u^4 \left(\beta  \sigma -\beta +2 \sigma ^2+2 \sigma \right)}{\beta ^3 (\sigma +1)^2}+\frac{u^2}{\beta },\frac{u^5 \left(-5 \beta  \sigma +\beta -2 \sigma ^2-2 \sigma \right)}{\beta ^3 (\sigma +1)^4}-\frac{u^3}{\beta  (\sigma +1)^2}\right\}\\
+-\frac{\sigma  u^3}{\beta  (\sigma +1)}-\frac{\sigma  u^5 \left(2 \beta  \sigma -\beta +2 \sigma ^2+2 \sigma \right)}{\beta ^3 (\sigma +1)^3}+O\left(u^6\right)
+$$
+分别为中心流形的系数列表, 中心流形的表达式以及约化系统的矢量场.
+
+由于函数 `h` 和 `SolveManifoldCoefficients` 的一般性, 上面的程序稍作修改可以求解任意有限维系统与任意阶次的中心流形, 前提是线性坐标变换可以得到 (有时求解特征值要求解高阶代数方程, 往往得不到线性坐标变换的解析表达式).
+

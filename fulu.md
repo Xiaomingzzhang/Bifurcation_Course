@@ -1,5 +1,4 @@
-# 附录: 多元微积分
-
+# 附录: 多元微积分与线性代数
 
 ## 隐函数定理
 
@@ -94,3 +93,6 @@ $$
 $$
 C_k(\mathbf{\xi},\mathbf{\eta},\mathbf{\gamma})=\frac{\partial ^3f_k}{\partial x_{i_1}\partial x_{i_2}\partial x_{i_3}}(\mathbf{a})\xi_{i_1}\eta_{i_2}\gamma_{i_3}.
 $$
+
+## 如何求限制逆
+
