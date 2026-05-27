@@ -387,7 +387,7 @@ newf[u_, v_, w_] = (Inverse[P] . f[x, y, z]) /.
    Thread[{x, y, z} -> P . {u, v, w}];
 ```
 
-下面我们假设中心流形的形式, 并代入到不变方程中. 要计算到直到 $k$ 阶的中心流形, 其一般形式是一个 $n$ 维的 $m$ 个变量的直到 $k$ 阶的 $n$ 维多项式. 对于我们这个例子, $n=2,m=1$, 并取 $k=5$. 为此我们定义一个一般的函数, 能生成任意的这种多项式, 这样程序稍作修改即可计算任意形式的中心流形:
+下面我们假设中心流形的形式, 并代入到不变方程中. 要计算到直到 $k$ 阶的中心流形, 其一般形式是一个 $m$ 个变量的直到 $k$ 阶的 $n$ 维多项式. 对于我们这个例子, $n=2,m=1$, 并取 $k=5$. 为此我们定义一个一般的函数, 能生成任意的这种多项式, 这样程序稍作修改即可计算任意形式的中心流形:
 ```mathematica
 (*定义一个函数,它生成n维m个变量的,从 k1 阶到 k2 阶的多项式向量*)
 h[n_, m_, k1_, k2_, var_] := 
@@ -409,11 +409,7 @@ h[n_, m_, k1_, k2_, var_] :=
 (*使得输入n,m,k,var时中心流形默认从2阶开始到k阶*)
 h[n_, m_, k_, var_] := h[n, m, 2, k, var];
 ```
-输入
-```mathematica
-h[2, 2, 3, {x, y}][[1]]
-```
-我们得到:
+输入 `h[2, 2, 3, {x, y}][[1]]` 我们得到:
 $$
 \left\{x^3 c_{1,3,0}+x^2 y c_{1,2,1}+x^2 c_{1,2,0}+x y^2 c_{1,1,2}+x y c_{1,1,1}+y^3 c_{1,0,3}+y^2 c_{1,0,2},x^3 c_{2,3,0}+x^2 y c_{2,2,1}+x^2 c_{2,2,0}+x y^2 c_{2,1,2}+x y c_{2,1,1}+y^3 c_{2,0,3}+y^2 c_{2,0,2}\right\}
 $$
@@ -458,3 +454,183 @@ $$
 
 由于函数 `h` 和 `SolveManifoldCoefficients` 的一般性, 上面的程序稍作修改可以求解任意有限维系统与任意阶次的中心流形, 前提是线性坐标变换可以得到 (有时求解特征值要求解高阶代数方程, 往往得不到线性坐标变换的解析表达式).
 
+## 投影法计算高维系统的分岔
+
+根据先前的课程, 我们知道: 使用投影法可以用系统的多重线性型以及特征向量表示高维系统中心流形的系数, 使用这些系数, 并结合上分岔定理可以给出原高维系统发生分岔的充分条件. 下面我们将以例子的形式, 介绍使用 Mathematica 计算这些系数.
+
+### 自治系统的单零特征值分岔
+
+考虑 Lorenz 系统
+$$
+\begin{aligned}
+\dot{x}& = \sigma (y - x), \\
+\dot{y}& = x(1+\mu - z) - y, \\
+\dot{z}& = xy - \beta z,
+\end{aligned}
+$$
+那么考虑平衡点原点在参数 $\mu$ 变化下的分岔问题, 其中 $\sigma,\beta$ 均取正的常数.
+
+定义矢量场:
+```mathematica
+f[x_, y_, z_] := {\[Sigma] (y - x), 
+   x*(1 + \[Mu]) - y - x z, -\[Beta] z + x y};
+```
+当 $\mu=0$ 时, 特征根与特征向量为
+```mathematica
+A = Grad[f[x, y, z], {x, y, z}] /. {x -> 0, y -> 0, 
+    z -> 0, \[Mu] -> 0};
+Eigensystem[A]
+Eigensystem[Transpose[A]]
+```
+$$
+\{0,-\beta ,-\sigma -1\}\\
+\left(
+\begin{array}{ccc}
+ 1 & 1 & 0 \\
+ 0 & 0 & 1 \\
+ -\sigma  & 1 & 0 \\
+\end{array}
+\right)
+$$
+其中行向量为相应特征值对应的特征向量.
+
+定义多重线性型:
+```mathematica
+MultilinearForm[f_, x_, a_, k_] := 
+  Module[{tensorD}, tensorD = D[f, {x, k}] /. Thread[x -> a];
+   Function[Null, 
+    Block[{vecs = {##}}, Fold[Dot, tensorD, Reverse[vecs]]]]];
+vars = {x, y, z};
+vectorfield = f[x, y, z] /. {\[Mu] -> 0};
+x0 = {0, 0, 0};
+B = MultilinearForm[vectorfield, vars, x0, 2];
+CC = MultilinearForm[vectorfield, vars, x0, 3];
+```
+定义 $q_0,p_0$:
+$$
+Aq_0=0,A^{T}p_0=0, \langle q_0,p_0\rangle =1
+$$
+```mathematica
+q0 = {1, 1, 0};
+prep0 = {1/\[Sigma], 1, 0};
+p0 = prep0/Dot[q0, prep0] // Simplify;
+```
+
+由于参数变化时, 原点始终是平衡点, 那么根据 [](./42project_method.md), 约化系统的矢量场为
+$$
+\dot{x}=a\mu x+\frac{1}{2}c x^2+\frac{1}{6}dx^3+\cdots,
+$$
+其中
+$$
+a&=\langle p_0,A_1 q_0\rangle,\\
+c&=\langle p_0,B(q_0,q_0)\rangle,\\
+d&=\langle p_0,C(q_0,q_0,q_0)\rangle-3\langle p_0,B(q_0,A_0^{-1}H_{20})\rangle,
+$$
+其中
+$$
+H_{20}=B(q_0,q_0)-\langle p_0,B(q_0,q_0)\rangle q_0.
+$$
+
+下面我在程序中分别定义这些量:
+```mathematica
+a = p0 . (A1 . q0)
+c = p0 . B[q0, q0]
+H20 = B[q0, q0] - (p0 . B[q0, q0]) q0;
+V = Transpose[{{0, 0, 1}, {-\[Sigma], 1, 0}}];
+inverseA0 = 
+  V . Inverse[(Transpose[V] . A . V)] . Transpose[V] // Simplify;
+inverseA0H20 = inverseA0 . H20;
+d = p0 . CC[q0, q0, q0] - 3 Dot[p0, B[q0, inverseA0H20]] // Simplify
+```
+得到
+$$
+a&=\frac{\sigma }{\sigma +1},\\
+c&=0,\\
+d&=-\frac{6 \sigma }{\beta(1+  \sigma ) }.
+$$
+
+最后得到分岔方程为:
+$$
+\dot{x}&=a\mu x+\frac{1}{2}c x^2+\frac{1}{6}dx^3+\cdots,\\
+&=\frac{\sigma}{1+\sigma}(\mu x-\frac{x^2}{\beta})+\cdots.
+$$
+
+```{prf:observation}
+我们得到的结果, $a,c$ 的值与书中相同, 但是 $d$ 不相同, 这是为什么? 如果 $c\neq 0$, 计算结果会一样吗?
+```
+
+### 自治系统的 Hopf 分岔
+
+考虑控制反馈系统
+$$
+\begin{aligned}
+\dot{x}& = y, \\
+\dot{y}& = z, \\
+\dot{z}& = -x-\beta y-\alpha z+x^2,
+\end{aligned}
+$$
+其中 $\alpha,\beta$ 为参数. 下面考虑 $(0,0,0)$ 点的 Hopf 分岔问题. 当 $\alpha=\frac{1}{\beta}$ 时, 系统原点处的 Jacobi 矩阵具有一对纯虚特征值:
+```mathematica
+f[x_, y_, z_] := {y, z, -x - \[Beta] y - \[Alpha] z + x^2};
+A = Grad[f[x, y, z], {x, y, z}] /. {x -> 0, y -> 0, 
+    z -> 0, \[Alpha] -> 1/\[Beta]};
+Eigensystem[A]
+Eigensystem[Transpose[A]]
+```
+$$
+\left\{-\frac{1}{\beta },-i \sqrt{\beta },i \sqrt{\beta }\right\},
+$$
+相应的特征矢量为
+$$
+\left(
+\begin{array}{ccc}
+ \beta ^2 & -\beta  & 1 \\
+ -\frac{1}{\beta } & \frac{i}{\sqrt{\beta }} & 1 \\
+ -\frac{1}{\beta } & -\frac{i}{\sqrt{\beta }} & 1 \\
+\end{array}
+\right)
+$$
+这里同样相应的行向量为特征矢量.
+
+下面分别计算 $p_0,q_0$ 以及多重线性型:
+```mathematica
+MyDot[x_, y_] := Dot[Conjugate[x], y];
+MySimplify[x_] := 
+  FullSimplify[x, 
+   Assumptions -> \[Beta] \[Element] Reals && \[Beta] > 0];
+\[Omega]0 = Sqrt[\[Beta]];
+q0 = {-(1/\[Beta]), -(I/Sqrt[\[Beta]]), 1};
+prep0 = {-(I/Sqrt[\[Beta]]), -((I (I + \[Beta]^(3/2)))/\[Beta]), 1};
+p0 = prep0/(MyDot[q0, prep0] // Expand // MySimplify)
+(*验证内积为1*)
+MyDot[p0, q0] // MySimplify
+MultilinearForm[f_, x_, a_, k_] := 
+  Module[{tensorD}, tensorD = D[f, {x, k}] /. Thread[x -> a];
+   Function[Null, 
+    Block[{vecs = {##}}, Fold[Dot, tensorD, Reverse[vecs]]]]];
+vars = {x, y, z};
+vectorfield = f[x, y, z] /. {\[Alpha] -> 1/\[Beta]};
+x0 = {0, 0, 0};
+B = MultilinearForm[vectorfield, vars, x0, 2];
+CC = MultilinearForm[vectorfield, vars, x0, 3];
+```
+
+由书中推导, 第一 Lyapunov 系数为:
+$$\frac { \mathrm { R e } \, c _ { 1 } ( 0 ) } { \omega _ { 0 } } &= \frac { 1 } { 2 \omega _ { 0 } ^ { 2 } } \, \mathrm { R e } ( i g _ { 2 0 } g _ { 1 1 } + \omega _ { 0 } g _ { 2 1 } )\\
+&=\frac { 1 } { 2 \omega _ { 0 } } \, \mathrm { R e } [ \langle p _ { 0 } , C ( q _ { 0 } , q _ { 0 } , \bar { q } _ { 0 } ) \rangle - 2 \langle p _ { 0 } , B ( q _ { 0 } , A _ { 0 } ^ { - 1 } B ( q _ { 0 } , \bar { q } _ { 0 } ) ) \rangle\\
+&+ \langle p _ { 0 } , B ( \bar { q } _ { 0 } , ( 2 i \omega _ { 0 } I - A _ { 0 } ) ^ { - 1 } B ( q _ { 0 } , q _ { 0 } ) ) \rangle ].
+$$
+直接在程序中输入这个表达式, 得到:
+```mathematica
+1/(2 \[Omega]0)
+   Re[MyDot[p0, CC[q0, q0, q0]] - 
+    2 MyDot[p0, B[q0, Inverse[A] . B[q0, Conjugate[q0]]]] + 
+    MyDot[p0, 
+     B[Conjugate[q0], 
+      Inverse[2 I \[Omega]0 IdentityMatrix[3] - A] . 
+       B[q0, q0]]]] // MySimplify
+```
+$$
+-\frac{11}{3 \sqrt{\beta } \left(4 \beta ^6+5 \beta ^3+1\right)}.
+$$
+故系统在 $\alpha=\frac{1}{\beta}$ 处发生了超临界的 Hopf 分岔.
