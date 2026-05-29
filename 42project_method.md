@@ -187,7 +187,7 @@ H_{20}&=B( q_0,q_0)-\langle p_0,B( q_0,q_0)\rangle q_0,\\
 d&=\langle p_0,C(q_0, q_0,q_0)\rangle-3\langle p_0,B(q_0, A_0^{-1}H_{20})\rangle.
 $$
 
-根据此前介绍的结果: [](./21anjie.md), [](./22yincha), 即可判断上述系数判定系统的分岔. 具体实例可参考 [](./61symbolic.md).
+根据此前介绍的结果: [](./21anjie.md), [](./22yincha), 即可通过上述系数判定系统的分岔. 具体实例可参考 [](./61symbolic.md).
 
 ## Hopf 分岔
 
@@ -204,7 +204,115 @@ $$
 $$
 且
 $$
-\alpha(0)=0,\alpha'(0)\neq0,\omega_0=\omega(0)>0,
+\alpha(0)=0,\alpha'(0)\neq0,\omega_0=\omega(0)> 0,
 $$
 $f_z(0,0)$ 的其余特征值均具有负实部.
 ```
+由 Hopf 分岔定理, 现在只需计算 $c_1(0)$ 的正负即可. 因此, 不妨在 $\mu=0$ 处计算中心流形. 假设
+$$
+\dot { x } = A _ { 0 } . x + F ( x ) = A _ { 0 } x + \frac { 1 } { 2 } B ( x , x ) + \frac { 1 } { 6 } C ( x , x , x ) + \cdots,
+$$
+其中 $A_{0}$ 和 $F(x)$ 分别代表 $A(0)$ 和 $F(x,0)$. 按
+
+$$
+\begin{array}{r} { A _ { 0 } q _ { 0 } = i \omega _ { 0 } q _ { 0 } ,  A _ { 0 } \bar { { q } } _ { 0 } = - i \omega _ { 0 } \bar { { q } } _ { 0 } } \\{ A _ { 0 } ^{T} p _ { 0 } = - i \omega _ { 0 } p _ { 0 } ,  A _ { 0 } ^{T} \bar { { p } } _ { 0 } = i \omega _ { 0 } \bar { { p } } _ { 0 } } \end{array}
+$$
+
+计算特征向量 $q_{0},p_{0}$, 并要求满足条件 $\langle p_{0},q_{0}\rangle =1$, 可证明 $\langle p_{0},\bar{q}_{0}\rangle =\langle \bar{p}_{0},q_{0}\rangle =0$ ([](./23hopf.md)). $A_{0}$ 对应 $q_{0},\bar{q}_{0}$ 的特征子空间为 $T^{c}=\text{span}\{\mathrm{Re}\,q_{0},\mathrm{Im}\,q_{0}\}$, 记 $T^{s}$ 是 $A_{0}$ 的其它特征值对应的特征子空间, 则有
+$$
+T ^{s} = \left\{ y : y \in \mathbb{R} ^{n} , \langle  p _ { 0 } , y \rangle  = 0 \right\}
+$$
+实际上, 对于矩阵 $A$, 对于其不同的特征值 $\lambda_j,\lambda_i$, $A,A^T$ 相应的特征矢量 $q_i,p_j$ 是垂直的. 由于恒等式
+$$
+\langle p_i, A_0 q_j \rangle = \langle A_0^T p_i, q_j \rangle
+$$
+成立, 那么
+$$
+\lambda_j \langle p_i, q_j \rangle = \lambda_i \langle p_i, q_j \rangle \implies (\lambda_j - \lambda_i) \langle p_i, q_j \rangle = 0.
+$$
+
+对任何 $x \in \mathbb{R}^{n}$，作分解
+$$
+x = z q _ { 0 } + \bar { { z } } \bar { { q } } _ { 0 } + y \; , \; z q _ { 0 } + \bar { { z } } \bar { { q } } _ { 0 } \in T ^{c} , \; y \in T ^{s}
+$$
+
+则有
+$$
+\left\{ \begin{array}{l} { { z = \langle  p _ { 0 } , x \rangle  } } \\{ { y = x - \langle  p _ { 0 } , x \rangle  q _ { 0 } - \langle  \bar { { p } } _ { 0 } , x \rangle  \bar { { q } } _ { 0 } } } \end{array} \right.
+$$
+
+在 $(z,y)$ 坐标中, 原方程可写为
+$$
+ \dot { z } &= i \omega _ { 0 } z + \langle  p _ { 0 } , F ( z q _ { 0 } + \bar { { z } } \bar { { q } } _ { 0 } + y ) \rangle \\
+  \dot { y } &= A _ { 0 } y + F ( z q _ { 0 } + \bar { { z } } \bar { { q } } _ { 0 } + y ) - \langle  p _ { 0 } , F ( z q _ { 0 } + \bar { { z } } \bar { { q } } _ { 0 } + y ) \rangle  q _ { 0 }  \ - \langle  \bar { { p } } _ { 0 } , F ( z q _ { 0 } + \bar { { z } } \bar { { q } } _ { 0 } + y ) \rangle  \bar { { q } } _ { 0 } .
+$$
+
+利用多重线性型 $B,C$ 的性质, 将上式写为
+$$
+ \dot { z } =& i \omega _ { 0 } z + \frac { 1 } { 2 } G _ { 20 } z ^{2} + G _ { 11 } z \bar { z } + \frac { 1 } { 2 } G _ { 02 } \bar { z } ^{2} + \frac { 1 } { 2 } G _ { 21 } z ^{2} \bar { z } \\ 
+ &+ \langle  p _ { 0 } , B ( q _ { 0 } , y ) \rangle  z + \langle  p _ { 0 } , B ( \bar { q } _ { 0 } , y ) \rangle  \bar { z } + \cdots \\
+  \dot { y } = &A _ { 0 } y + \frac { 1 } { 2 } H _ { 20 } z ^{2} + H _ { 11 } z \bar { z } + \frac { 1 } { 2 } H _ { 02 } \bar { z } ^{2} + \cdots .
+$$
+
+其中
+$$
+ G _ { 20 } = \langle  p _ { 0 } , B ( q _ { 0 } , q _ { 0 } ) \rangle  , G _ { 11 } = \langle  p _ { 0 } , B ( q _ { 0 } , \bar { { q } } _ { 0 } ) \rangle  ,\\
+  G _ { 02 } = \langle  p _ { 0 } , B ( \bar { { q } } _ { 0 } , \bar { { q } } _ { 0 } ) \rangle    G _ { 21 } = \langle  p _ { 0 } , C ( q _ { 0 } , q _ { 0 } , \bar { { q } } _ { 0 } ) \rangle  
+$$
+$$
+\begin{array}{r} { \left\{ \begin{array}{ll} { H _ { 20 } = B ( q _ { 0 } , q _ { 0 } ) - \langle  p _ { 0 } , B ( q _ { 0 } , q _ { 0 } ) \rangle  q _ { 0 } - \langle  \bar { { p } } _ { 0 } , B ( q _ { 0 } , q _ { 0 } ) \rangle  \bar { { q } } _ { 0 } } \\{ H _ { 11 } = B ( q _ { 0 } , \bar { { q } } _ { 0 } ) - \langle  p _ { 0 } , B ( q _ { 0 } , \bar { { q } } _ { 0 } ) \rangle  q _ { 0 } - \langle  \bar { { p } } _ { 0 } , B ( q _ { 0 } , \bar { { q } } _ { 0 } ) \rangle  \bar { { q } } _ { 0 } } \\{ H _ { 02 } = B ( \bar { { q } } _ { 0 } , \bar { { q } } _ { 0 } ) - \langle  p _ { 0 } , B ( \bar { { q } } _ { 0 } , \bar { { q } } _ { 0 } ) \rangle  q _ { 0 } - \langle  \bar { { p } } _ { 0 } , B ( \bar { { q } } _ { 0 } , \bar { { q } } _ { 0 } ) \rangle  \bar { { q } } _ { 0 } } \end{array} \right. } \end{array}
+$$
+
+中心流形的表达式为:
+$$
+y=W(z,\bar{z})=\frac{1}{2}w_{20}z^2+w_{11}z\bar{z}+\frac{1}{2}w_{02}\bar{z}^2+O(|z|^3).
+$$
+此时其相应的不变方程为:
+$$
+\dot{y}=W_{z}(z,\bar{z})\dot{z}+W_{\bar{z}}(z,\bar{z})\dot{\bar{z}}.
+$$
+代入 $\dot{y},\dot{z},\dot{\bar{z}}$ 的表达式, 并比较同阶项, 可以解得:
+$$
+w _ { 20 } = ( 2 i \omega _ { 0 } I - A _ { 0 } ) ^{- 1} H _ { 20 } , w _ { 11 } = - A _ { 0 } ^{- 1} H _ { 11 } , w _ { 02 } = ( - 2 i \omega _ { 0 } I - A _ { 0 } ) ^{- 1} H _ { 02 }
+$$
+
+其中 $I$ 是 $n$ 阶单位矩阵, $A_{0}$ 与矩阵 $- 2 i \omega _ { 0 } I - A _ { 0 } $ 都是可逆的. 将中心流形 $y = W(z, \bar{z})$ 代入到 $\dot{z}$ 的表达式中, 得到简化方程
+$$
+\begin{array}{rl} & { \dot { z } = i \omega _ { 0 } z + \frac { 1 } { 2 } G _ { 20 } z ^{2} + G _ { 11 } \bar { { z } } \bar { { z } } + \frac { 1 } { 2 } G _ { 02 } \bar { { z } } ^{2} + } \\& {           \frac { 1 } { 2 } ( G _ { 21 } - 2 \langle  p _ { 0 } , B ( q _ { 0 } , A _ { 0 } ^{- 1} H _ { 11 } ) \rangle  + \langle  p _ { 0 } , B ( \bar { { q } } _ { 0 } , ( 2 i \omega _ { 0 } I - A _ { 0 } ) ^{- 1} H _ { 20 } ) \rangle  ) z ^{2} \bar { { z } } + \cdots } \end{array}
+$$
+
+或
+
+$$
+\dot { z } = i \omega _ { 0 } z + \frac { 1 } { 2 } \, g _ { \mathrm { 20 } } z ^{2} + g _ { 11 } z \bar { z } + \frac { 1 } { 2 } \, g _ { \mathrm { 02 } } \bar { z } ^{2} + \frac { 1 } { 2 } \, g _ { \mathrm { 21 } } z ^{2} \bar { z } \cdots
+$$
+
+其中 $g_{20}=G_{20}$, $g_{11}=G_{11}$, $g_{02}=G_{02}$ 及
+
+$$
+g _ { 21 } = G _ { 21 } - 2 \langle  p _ { 0 } , B ( q _ { 0 } , A _ { 0 } ^{- 1} H _ { 11 } ) \rangle  + \langle  p _ { 0 } , B ( \bar { { q } } _ { 0 } , ( 2 i \omega _ { 0 } I - A _ { 0 } ) ^{- 1} H _ { 20 } ) \rangle 
+$$
+
+利用如下关系
+
+$$
+A _ { 0 } ^{- 1} q _ { 0 } = q _ { 0 } \, / i \omega _ { 0 } , A _ { 0 } ^{- 1} \bar { { q } } _ { 0 } = - \bar { { q } } _ { 0 } \, / i \omega _ { 0 } , ( 2 i \omega _ { 0 } - A _ { 0 } ) ^{- 1} q _ { 0 } = q _ { 0 } \, / i \omega _ { 0 } , ( 2 i \omega _ { 0 } - A _ { 0 } ) ^{- 1} \bar { { q } } _ { 0 } = \bar { { q } } _ { 0 } \, / 3 i \omega _ { 0 }
+$$
+
+将 $g_{21}$ 简化为
+
+$$
+ g _ { 21 } = &\langle  p _ { 0 } , C ( q _ { 0 } , q _ { 0 } , \bar { { q } } _ { 0 } ) \rangle  - 2 \langle  p _ { 0 } , B ( q _ { 0 } , A _ { 0 } ^{- 1} B ( q _ { 0 } , \bar { { q } } _ { 0 } ) ) \rangle  + \langle  p _ { 0 } , B ( \bar { { q } } _ { 0 } , ( 2 i \omega _ { 0 } I - A _ { 0 } ) ^{- 1} B ( q _ { 0 } , q _ { 0 } ) ) \rangle  \\
+ & + \frac { 1 } { i \omega _ { 0 } } \langle  p _ { 0 } , B ( q _ { 0 } , q _ { 0 } ) \rangle  \langle  p _ { 0 } , B ( q _ { 0 } , \bar { { q } } _ { 0 } ) \rangle  - \frac { 2 } { i \omega _ { 0 } } | \langle  p _ { 0 } , B ( q _ { 0 } , \bar { { q } } _ { 0 } ) \rangle  | ^{2} - \frac { 1 } { 3 i \omega _ { 0 } } | \langle  p _ { 0 } , B ( \bar { { q } } _ { 0 } , \bar { { q } } _ { 0 } ) \rangle  | ^{2} 
+$$
+
+最后由 $c_1(0)$ 的表达式, 最终得到
+$$
+\begin{aligned}
+l_{1}(0)&=\frac{\mathrm{Re}\:c_{1}(0)}{\omega_{0}}\\
+&=\frac{1}{2\omega_{0}^{2}}\mathrm{Re}(ig_{20}g_{11}+\omega_{0}g_{21})\\
+&=\frac{1}{2\omega_{0}}\mathrm{Re}[\langle p_{0},C(q_{0},q_{0},\bar{q}_{0})\rangle -2\langle p_{0},B(q_{0},A_{0}^{-1}B(q_{0},\bar{q}_{0}))\rangle +\langle p_{0},B(\bar{q}_{0},(2i\omega_{0}I-A_{0})^{-1}B(q_{0},q_{0}))\rangle ]
+\end{aligned}
+$$
+
+具体实例可参考 [](./61symbolic.md).
